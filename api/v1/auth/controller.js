@@ -113,7 +113,8 @@ exports.adminLogin = async function (req, res) {
         resultJson['akses'].push(features);
       }
 
-      return res.status(200).json(rsMsg(resultJson))
+      // return res.status(200).json(rsMsg(resultJson))
+      return res.status(200).json('hai')
     }else{
       await AksAdmLogin.update({
         counter: counter + 1
