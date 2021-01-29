@@ -15,10 +15,6 @@ const AksesLoginView = require('../../../model/akses_login_view');
 const secret = require('../../../setting').secret;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const Client = require('ssh2').Client;
-const { exec } = require('child_process');
-const shell = require('shelljs');
-const system = require('system-commands')
 
 exports.adminLogin = async function (req, res) {
   try {
@@ -139,17 +135,3 @@ exports.adminLogin = async function (req, res) {
     }
   }
 };
-
-exports.deploy = async function(req, res){
-  try{
-    system('source /home/souh8667/nodevenv/ms-admin/10/bin/activate && cd /home/souh8667/ms-admin && cloudlinux-selector stop --json --interpreter nodejs --app-root ~/ms-admin').then(output => {
-      logger.debug(output);
-      return res.status(200).json(rsMsg(output));
-    }).catch(error => {
-      logger.error(error)
-      return res.status(500).json(errMsg('04000', error.toString()));
-    })
-  }catch(e){
-    return res.status(500).json(errMsg('04000', e.toString()));
-  }
-}
