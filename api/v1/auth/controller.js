@@ -17,6 +17,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Client = require('ssh2').Client;
 const { exec } = require('child_process');
+const shell = require('shelljs');
+const system = require('system-commands')
 
 exports.adminLogin = async function (req, res) {
   try {
@@ -140,18 +142,13 @@ exports.adminLogin = async function (req, res) {
 
 exports.deploy = async function(req, res){
   try{
-    exec('source /home/souh8667/nodevenv/ms-admin/10/bin/activate && cd /home/souh8667/ms-admin && ls', (error, stdout, stderr) => {
-      if (error) {
-        logger.error(`exec error: ${error}`);
-        return res.status(500).json(errMsg('04000', error.toString()));
-      }
-      logger.debug(`stdout: ${stdout}`);
-      logger.error(`stderr: ${stderr}`);
-      return res.status(200).json(rsMsg({
-        stdout: stdout,
-        stderr: stderr
-      }));
-    });
+    system('source /home/souh8667/nodevenv/ms-admin/10/bin/activate && cd /home/souh8667/ms-admin && ls').then(output => {
+      logger.debug(output);
+      return res.status(200).json(rsMsg(output));
+    }).catch(error => {
+      logger.error(error)
+      return res.status(500).json(errMsg('04000', error.toString()));
+    })
   }catch(e){
     return res.status(500).json(errMsg('04000', e.toString()));
   }

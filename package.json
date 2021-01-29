@@ -61,10 +61,12 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.6",
     "sequelize": "^4.42.0",
+    "shelljs": "^0.8.4",
     "ssh2": "^0.8.9",
     "string-template": "^1.0.0",
     "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.1",
+    "system-commands": "^1.1.7",
     "uuid": "^3.3.2",
     "winston": "^3.3.3",
     "yarn": "^1.15.2"
