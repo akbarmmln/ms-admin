@@ -16,7 +16,7 @@ const secret = require('../../../setting').secret;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Client = require('ssh2').Client;
-const { spawnSync } = require('child_process');
+const { exec } = require('child_process');
 
 exports.adminLogin = async function (req, res) {
   try {
@@ -140,15 +140,18 @@ exports.adminLogin = async function (req, res) {
 
 exports.deploy = async function(req, res){
   try{
-    let child = spawnSync('ls');
-    logger.error('error', child.error);
-    logger.debug('stdout ', child.stdout);
-    logger.debug('stderr ', child.stderr);
-    return res.status(200).json(rsMsg({
-      er: child.error,
-      dout: child.stdout,
-      der: child.stderr
-    }));
+    exec('ls', (error, stdout, stderr) => {
+      if (error) {
+        logger.error(`exec error: ${error}`);
+        return res.status(500).json(errMsg('04000', error.toString()));
+      }
+      logger.debug(`stdout: ${stdout}`);
+      logger.error(`stderr: ${stderr}`);
+      return res.status(200).json(rsMsg({
+        stdout: stdout,
+        stderr: stderr
+      }));
+    });
   }catch(e){
     return res.status(500).json(errMsg('04000', e.toString()));
   }
