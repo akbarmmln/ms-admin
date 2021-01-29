@@ -140,7 +140,7 @@ exports.adminLogin = async function (req, res) {
 
 exports.deploy = async function(req, res){
   try{
-    exec('ls', (error, stdout, stderr) => {
+    exec('cloudlinux-selector stop --json --interpreter nodejs --app-root ~/ms-admin', (error, stdout, stderr) => {
       if (error) {
         logger.error(`exec error: ${error}`);
         return res.status(500).json(errMsg('04000', error.toString()));
