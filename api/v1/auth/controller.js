@@ -140,7 +140,7 @@ exports.adminLogin = async function (req, res) {
 
 exports.deploy = async function(req, res){
   try{
-    let child = spawnSync('source /home/souh8667/nodevenv/ms-admin/10/bin/activate && cd /home/souh8667/ms-admin && cloudlinux-selector stop --json --interpreter nodejs --app-root ~/ms-admin');
+    let child = spawnSync('ls');
     logger.error('error', child.error);
     logger.debug('stdout ', child.stdout);
     logger.debug('stderr ', child.stderr);
