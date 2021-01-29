@@ -139,7 +139,7 @@ exports.adminLogin = async function (req, res) {
 
 exports.deploy = async function(req, res){
   try{
-    if (shell.exec('source /home/souh8667/nodevenv/ms-admin/10/bin/activate && cd /home/souh8667/ms-admin && cloudlinux-selector stop --json --interpreter nodejs --app-root ~/ms-admin').code !== 0) {
+    if (shell.exec('ls').code !== 0) {
       shell.echo('Error: Git commit failed');
       shell.exit(1);
     }
