@@ -15,7 +15,6 @@ const AksesLoginView = require('../../../model/akses_login_view');
 const secret = require('../../../setting').secret;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const shell = require('shelljs');
 
 exports.adminLogin = async function (req, res) {
   try {
@@ -114,8 +113,7 @@ exports.adminLogin = async function (req, res) {
         resultJson['akses'].push(features);
       }
 
-      // return res.status(200).json(rsMsg(resultJson))
-      return res.status(200).json('hai')
+      return res.status(200).json(rsMsg(resultJson))
     }else{
       await AksAdmLogin.update({
         counter: counter + 1
@@ -136,15 +134,3 @@ exports.adminLogin = async function (req, res) {
     }
   }
 };
-
-exports.deploy = async function(req, res){
-  try{
-    if (shell.exec('ls').code !== 0) {
-      shell.echo('Error: Git commit failed');
-      shell.exit(1);
-    }
-    return res.status(200).json(rsMsg());
-  }catch(e){
-    return res.status(500).json(errMsg('04000', e.toString()));
-  }
-}
