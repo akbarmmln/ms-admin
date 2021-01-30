@@ -103,7 +103,9 @@ exports.accountAdmin = async function (req, res) {
       })
     }
     let response = rsMsg(arr);
-    response.count = resultLoginCount;
+    response.currentPage = page;
+    response.totalPage = Math.ceil(resultLoginCount / pageLimit);
+    response.totalData = resultLoginCount;
     return res.json(response);
   } catch (e) {
     if (typeof e === 'string') {
