@@ -4,4 +4,5 @@ const controller = require('./controller');
 const utils = require('../../../utils/utils');
 
 router.post('/login', controller.adminLogin);
+
 module.exports = router;

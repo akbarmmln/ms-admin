@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const dbConnection = require('../config/db').Sequelize;
 const AksAdmProfil = require('./aks_adm_profil');
+const AksAdmGroup = require('./aks_adm_group');
 
 const AksAdmLogin = dbConnection.define('aks_adm_login', {
     id: {
@@ -29,5 +30,10 @@ AksAdmProfil.hasOne(AksAdmLogin, {
     foreignKey: 'id',
     as: 'login'
 });
+
+AksAdmLogin.belongsTo(AksAdmGroup,{
+    foreignKey: 'group_id',
+    as: 'const_group'
+})
 
 module.exports = AksAdmLogin;
