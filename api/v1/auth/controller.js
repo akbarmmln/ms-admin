@@ -25,7 +25,7 @@ exports.adminLogin = async function (req, res) {
       counter = 0;
 
     if (await formatData.isEmpty(email)) {
-      throw '10001';
+      throw '01001';
     } else if (await formatData.isEmpty(password)) {
       throw '01002';
     }
