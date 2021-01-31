@@ -113,7 +113,7 @@ exports.accountAdmin = async function (req, res) {
       return res.status(400).json(errMsg(e));
     } else {
       logger.error(`internal server error - accountAdmin... ${e}`);
-      return res.status(500).json(errMsg('04000', e.toString()));
+      return res.status(500).json(errMsg('10000', e.toString()));
     }
   }
 }
@@ -157,7 +157,29 @@ exports.getAccount = async function(req, res){
       return res.status(400).json(errMsg(e));
     } else {
       logger.error(`internal server error - getAccount... ${e}`);
-      return res.status(500).json(errMsg('04000', e.toString()));
+      return res.status(500).json(errMsg('10000', e.toString()));
+    }
+  }
+}
+
+exports.accountAkses = async function(req, res){
+  try{
+    let id = req.adminUserId;
+    let findData = await AksesLoginView.findAll({
+      raw: true,
+      attributes: {
+        exclude: ['id_login', 'firstname', 'lastname', 'email']
+      },
+      where: { id_login: id }
+    })
+    return res.status(200).json(rsMsg(findData))
+  }catch(e){
+    if (typeof e === 'string') {
+      logger.error(`error request data - accountAkses... ${e}`);
+      return res.status(400).json(errMsg(e));
+    } else {
+      logger.error(`internal server error - accountAkses... ${e}`);
+      return res.status(500).json(errMsg('10000', e.toString()));
     }
   }
 }

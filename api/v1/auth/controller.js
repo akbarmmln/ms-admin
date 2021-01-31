@@ -130,7 +130,7 @@ exports.adminLogin = async function (req, res) {
       return res.status(400).json(errMsg(e));
     } else {
       logger.error(`internal server error - adminLogin... ${e}`);
-      return res.status(500).json(errMsg('04000', e.toString()));
+      return res.status(500).json(errMsg('10000', e.toString()));
     }
   }
 };
