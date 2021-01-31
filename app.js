@@ -8,7 +8,9 @@ const swaggerUi = require('swagger-ui-express');
 const schedule = require('node-schedule');
 const logger = require('./config/logger');
 const utils = require('./utils/utils');
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({
