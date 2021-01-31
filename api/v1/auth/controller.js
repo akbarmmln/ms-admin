@@ -134,3 +134,62 @@ exports.adminLogin = async function (req, res) {
     }
   }
 };
+
+exports.verifyToken = async function (req, res, next) {
+  try {
+    let token = req.headers.authorization;
+    let decodedToken;
+    let adminId;
+    let adminEmail;
+    let uuid;
+
+    if (token === 'null') {
+      throw '01136';
+    } else if (token === 'expired') {
+      throw 'TokenExpiredError: jwt expired';
+    }
+
+    if (!token) {
+      logger.error('No token provided.');
+      return res.status(403).json(errMsg('01136'));
+    } else {
+      try {
+        decodedToken = await jwt.verify(token, secret);
+        logger.debug('successfully decoded token with payload:', decodedToken);
+
+        adminId = decodedToken.id;
+        adminEmail = decodedToken.email;
+        uuid = decodedToken.uuid;
+        req.adminUserId = adminId;
+        req.adminEmail = adminEmail;
+
+        let checkToken = await AksAdmLogin.count({
+          where: {
+            session: uuid
+          }
+        });
+
+        if (checkToken < 1) {
+          return res.status(401).json(errMsg('01135'));
+        }
+        logger.debug('successfully refreshed new token', token);
+        res.set('Access-Control-Expose-Headers', 'Authorization');
+        res.set('Authorization', token);
+        next();
+      } catch (e) {
+        throw e;
+      }
+    }
+  } catch (e) {
+    if (e.toString() === 'TokenExpiredError: jwt expired') {
+      logger.error('token expired');
+      return res.status(401).json(errMsg('01134'));
+    } else if (e.message && (e.message.includes('invalid') || e.message.includes('malform'))) {
+      logger.error('invalid access token');
+      return res.status(401).json(errMsg('01135'));
+    } else {
+      logger.error(`internal server error - verifyToken... ${e}`);
+      return res.status(500).json(errMsg('10000', e));
+    }
+  }
+};
