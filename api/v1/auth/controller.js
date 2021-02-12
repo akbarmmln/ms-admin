@@ -82,7 +82,7 @@ exports.adminLogin = async function (req, res) {
         expiresIn: 36000 // expires in 1 hour
       });
       await AksAdmLogin.update({
-        session: uuid, last_login: newDate
+        session: uuid, last_login: newDate, counter: 0
       }, {
         where: { email: email }
       });
