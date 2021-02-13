@@ -52,6 +52,8 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
     idleTimeoutMillis: 3000,
     evict: 30000
   },
+  logging: logger.debug(),
+  logging: true,
   timezone: '+07:00'
 });
 
