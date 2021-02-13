@@ -52,10 +52,10 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
     idleTimeoutMillis: 3000,
     evict: 30000
   },
-  logging: console.log,                  // Default, displays the first parameter of the log function call
-  logging: (sql, queryObject) => console.log(sql), // Displays all log function call parameters
-  // logging: false,                        // Disables logging
-  // logging: sql => logger.debug(sql),     // Use custom logger (e.g. Winston or Bunyan), displays the first parameter
+  // logging: console.log,
+  logging: (sql, queryObject) => console.log(sql),
+  logging: true,
+  // logging: sql => logger.debug(sql),
   logging: logger.debug.bind(logger),
   timezone: '+07:00'
 });
