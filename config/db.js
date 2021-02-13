@@ -53,7 +53,8 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
     evict: 30000
   },
   logging: true,
-  // logging: (sql, queryObject) => logger.debug(sql),
+  logging: logger.debug(),
+  logging: (sql, queryObject) => logger.debug(sql),
   timezone: '+07:00'
 });
 
