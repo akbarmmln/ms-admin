@@ -15,6 +15,7 @@ const AksesLoginView = require('../../../model/akses_login_view');
 const secret = require('../../../setting').secret;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const utils = require('../../../utils/utils');
 
 exports.adminLogin = async function (req, res) {
   try {
@@ -82,6 +83,9 @@ exports.adminLogin = async function (req, res) {
         expiresIn: 36000 // expires in 1 hour
       });
       await AksAdmLogin.update({
+        logging: async (sql, queryObject) => {
+          utils.sendToElasticAndLogToConsole(sql, queryObject)
+        },  
         session: uuid, last_login: newDate, counter: 0
       }, {
         where: { email: email }
@@ -116,6 +120,9 @@ exports.adminLogin = async function (req, res) {
       return res.status(200).json(rsMsg(resultJson))
     }else{
       await AksAdmLogin.update({
+        logging: async (sql, queryObject) => {
+          utils.sendToElasticAndLogToConsole(sql, queryObject)
+        },  
         counter: counter + 1
       }, {
         where: { email: email }

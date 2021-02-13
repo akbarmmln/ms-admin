@@ -2,6 +2,10 @@ const logger = require('../config/logger');
 const errMsg = require('../error/resError');
 const nodemailer = require('nodemailer');
 
+exports.sendToElasticAndLogToConsole = async function(sql, queryObject){
+  logger.debug(sql)
+}
+
 exports.returnFunction = function (resObject, errorMessageLogger, errorObject) {
   if (typeof errorObject === 'string') {
     logger.error(errorMessageLogger, errorObject.toString());
