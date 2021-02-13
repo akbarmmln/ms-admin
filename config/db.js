@@ -2,6 +2,7 @@
 const Sequelize = require('sequelize');
 const settings = require('../setting').mysql;
 const logger = require('./logger');
+const utils = require('../utils/utils');
 const Op = Sequelize.Op;
 const operatorsAliases = {
   $eq: Op.eq,
@@ -52,10 +53,13 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
     idleTimeoutMillis: 3000,
     evict: 30000
   },
-  logging: console.log,
-  logging: (sql, queryObject) => console.log(sql),
-  logging: true,
-  logging: msg => logger.debug(msg),
+  // logging: console.log,
+  // logging: (sql, queryObject) => console.log(sql),
+  // logging: true,
+  // logging: msg => logger.debug(msg),
+  logging: (sql, queryObject) => {
+    utils.sendToElasticAndLogToConsole(sql, queryObject)
+  },
   logging: logger.debug.bind(logger),
   timezone: '+07:00'
 });
