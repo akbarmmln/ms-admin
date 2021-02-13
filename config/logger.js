@@ -11,8 +11,7 @@ if(process.env.ENVIRONMENT === 'LOCAL'){
   logger.level = process.env.LOGGING_LEVEL ? process.env.LOGGING_LEVEL : 'debug';
   module.exports = logger;
 }else{
-  // loggerStream = fs.createWriteStream(`../log/ms-admin-${moment().format('YYYYMMDDHHmmssSSS')}.log`);
-  loggerStream = fs.createWriteStream(`../log/ms-admin.log`);
+  loggerStream = fs.createWriteStream(`../log/ms-admin-${moment().format('YYYYMMDDHHmmssSSS')}.log`);
   Logger.info = function(msg) {
     var message = `[${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}] [INFO]` + " : " + msg + "\n";
     loggerStream.write(message);
