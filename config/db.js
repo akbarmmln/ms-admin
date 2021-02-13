@@ -54,12 +54,12 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
     evict: 30000
   },
   // logging: console.log,
-  logging: (sql, queryObject) => {
+  logging: async (sql, queryObject) => {
     utils.sendToElasticAndLogToConsole(sql, queryObject)
   },
-  logging: false,
+  // logging: true,
   // logging: '',
-  logging: logger.debug.bind(logger),
+  // logging: logger.debug.bind(logger),
   timezone: '+07:00'
 });
 
