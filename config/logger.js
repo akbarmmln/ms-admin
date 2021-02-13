@@ -7,8 +7,12 @@ const Logger = {};
 let loggerStream;
 if(process.env.ENVIRONMENT === 'LOCAL'){
   const log4js = require('log4js');
+  log4js.configure({
+    appenders: { everything: { type: 'file', filename: '../log/ms-admins.log' } },
+    categories: { default: { appenders: ['everything'], level: 'ALL' } }
+  });
   const logger = log4js.getLogger();
-  logger.level = 'debug';
+  logger.level = process.env.LOGGING_LEVEL ? process.env.LOGGING_LEVEL : 'debug';
   module.exports = logger;
 }else{
   loggerStream = fs.createWriteStream(`../log/ms-admin-${moment().format('YYYYMMDDHHmmssSSS')}.log`);
