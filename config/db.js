@@ -56,7 +56,7 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
   logging: (sql, queryObject) => console.log(sql),
   logging: true,
   // logging: sql => logger.debug(sql),
-  logging: logger.debug.bind(logger),
+  logging: logger.debug(logger),
   timezone: '+07:00'
 });
 
