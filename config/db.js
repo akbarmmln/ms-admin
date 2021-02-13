@@ -58,7 +58,9 @@ const sequelize = new Sequelize(settings.dbname, settings.username, settings.pas
     utils.sendToElasticAndLogToConsole(sql, queryObject)
   },
   logging: true,
-  logging: msg => logger.debug(msg),
+  logging: (sql, queryObject) => {
+    utils.sendToElasticAndLogToConsole(sql, queryObject)
+  },
   logging: logger.debug.bind(logger),
   timezone: '+07:00'
 });
