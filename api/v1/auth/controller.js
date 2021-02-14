@@ -16,8 +16,6 @@ const secret = require('../../../setting').secret;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const utils = require('../../../utils/utils');
-const CryptoJS = require('crypto-js');
-const randomstring = require('randomstring');
 
 exports.adminLogin = async function (req, res) {
   try {
@@ -204,12 +202,5 @@ exports.verifyToken = async function (req, res, next) {
 };
 
 exports.resetPassword = async function(req, res){
-  let uuid = uuidv4()
-  let id = CryptoJS.SHA256("RO" + uuid).toString();
-  let randomString = randomstring.generate({length:2,charset:'alphabetic',capitalization:'lowercase'});
-  return res.status(200).json(rsMsg({
-    a: id,
-    b: 'b',
-    c: randomString
-  }))
+  return res.status(200).json(rsMsg({}))
 }
