@@ -207,7 +207,6 @@ exports.resetPassword = async function(req, res){
   let id = CryptoJS.SHA256("RO" + uuid).toString();
   return res.status(200).json(rsMsg({
     a: id,
-    b: 'b',
-    c: 'c'
+    b: 'b'
   }))
 }
