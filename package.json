@@ -57,6 +57,7 @@
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.3",
     "pug": "^2.0.3",
+    "randomstring": "^1.1.5",
     "redis": "^2.8.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.6",
