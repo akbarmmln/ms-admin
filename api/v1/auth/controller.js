@@ -202,5 +202,7 @@ exports.verifyToken = async function (req, res, next) {
 };
 
 exports.resetPassword = async function(req, res){
-  return res.status(200).json(rsMsg({}))
+  return res.status(200).json(rsMsg({
+    a: 'a'
+  }))
 }
