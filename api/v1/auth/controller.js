@@ -18,6 +18,9 @@ const bcrypt = require('bcryptjs');
 const utils = require('../../../utils/utils');
 const CryptoJS = require('crypto-js');
 const randomstring = require('randomstring');
+const {
+  parseAsync
+} = require('json2csv');
 
 exports.adminLogin = async function (req, res) {
   try {
