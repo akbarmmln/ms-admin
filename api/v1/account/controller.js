@@ -17,7 +17,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Sequelize = require('../../../config/db').Sequelize;
 const utils = require('../../../utils/utils');
-const CryptoJS = require("crypto-js");
 
 exports.accountAdmin = async function (req, res) {
   try {

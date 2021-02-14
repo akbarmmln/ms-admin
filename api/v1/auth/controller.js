@@ -16,6 +16,7 @@ const secret = require('../../../setting').secret;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const utils = require('../../../utils/utils');
+const CryptoJS = require('crypto-js');
 
 exports.adminLogin = async function (req, res) {
   try {
@@ -202,7 +203,9 @@ exports.verifyToken = async function (req, res, next) {
 };
 
 exports.resetPassword = async function(req, res){
+  let uuid = uuidv4()
+  let id = CryptoJS.SHA256("RO" + uuid).toString();
   return res.status(200).json(rsMsg({
-    a: 'a'
+    a: id
   }))
 }
